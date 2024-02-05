@@ -4,6 +4,7 @@ from assertpy import assert_that
 from selenium.webdriver.common.by import By
 
 from base.automation_wrapper import WebDriverWrapper
+from pages.login_page import LoginPage
 from utils.data_utils import DataSource
 
 
@@ -11,15 +12,19 @@ class TestLogin(WebDriverWrapper):
 
     @pytest.mark.parametrize("username,password,expected_title", DataSource.data_valid_login)
     def test_valid_login(self, username, password, expected_title):
-        self.driver.find_element(By.ID, "authUser").send_keys(username)
-        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys(password)
+
+        login=LoginPage(self.driver)
+        login.enter_username(username)
+        login.enter_password(password)
         self.driver.find_element(By.ID, "login-button").click()
         assert_that(expected_title).is_equal_to(self.driver.title)
 
     @pytest.mark.parametrize("username,password,expected_error", DataSource.data_invalid_login)
     def test_invalid_login(self, username, password, expected_error):
-        self.driver.find_element(By.ID, "authUser").send_keys(username)
-        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys(password)
+        login = LoginPage(self.driver)
+        login.enter_username(username)
+        login.enter_password(password)
+
         self.driver.find_element(By.ID, "login-button").click()
         actual_error = self.driver.find_element(By.XPATH, "//p[contains(text(),'Invalid')]").text
         assert_that(actual_error).contains(expected_error)
