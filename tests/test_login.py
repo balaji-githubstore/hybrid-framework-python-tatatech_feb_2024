@@ -4,14 +4,20 @@ from assertpy import assert_that
 from selenium.webdriver.common.by import By
 
 from base.automation_wrapper import WebDriverWrapper
+from utils.data_utils import DataSource
 
 
 class TestLogin(WebDriverWrapper):
-    def test_valid_login(self):
-        self.driver.find_element(By.ID, "authUser").send_keys("accountant")
-        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys("accountant")
+
+    @pytest.mark.parametrize(
+        "username,password,expected_title",
+       DataSource.data_valid_login
+    )
+    def test_valid_login(self, username, password, expected_title):
+        self.driver.find_element(By.ID, "authUser").send_keys(username)
+        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys(password)
         self.driver.find_element(By.ID, "login-button").click()
-        assert_that("OpenEMR").is_equal_to(self.driver.title)
+        assert_that(expected_title).is_equal_to(self.driver.title)
 
     def test_invalid_login(self):
         self.driver.find_element(By.ID, "authUser").send_keys("john")
