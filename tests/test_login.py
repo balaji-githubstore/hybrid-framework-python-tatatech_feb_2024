@@ -3,20 +3,24 @@ from selenium import webdriver
 from assertpy import assert_that
 from selenium.webdriver.common.by import By
 
+from base.automation_wrapper import WebDriverWrapper
 
-class TestLoginUI:
-    @pytest.fixture(scope="function", autouse=True)
-    def setup(self):
-        # runs before each test_method
-        self.driver = webdriver.Edge()
-        self.driver.maximize_window()
-        self.driver.maximize_window()
-        self.driver.implicitly_wait(5)
-        self.driver.get("https://demo.openemr.io/b/openemr")
-        yield
-        # runs after each testt_method
-        self.driver.quit()
 
+class TestLogin(WebDriverWrapper):
+    def test_valid_login(self):
+        self.driver.find_element(By.ID, "authUser").send_keys("admin")
+        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys("pass")
+        self.driver.find_element(By.ID, "login-button").click()
+        assert_that("OpenEMR").is_equal_to(self.driver.title)
+
+    def test_invalid_login(self):
+        self.driver.find_element(By.ID, "authUser").send_keys("john")
+        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys("john123")
+        self.driver.find_element(By.ID, "login-button").click()
+        actual_error=self.driver.find_element(By.XPATH,"//p[contains(text(),'Invalid')]").text
+        assert_that(actual_error).contains("Invalid username or password")
+
+class TestLoginUI(WebDriverWrapper):
     def test_title(self):
         print(self.driver)
         actual_title = self.driver.title
@@ -27,8 +31,8 @@ class TestLoginUI:
         assert_that(actual_desc).contains("Electronic Health Record and Medical Practice Management")
 
     def test_placeholder(self):
-        actual_username_placeholder= self.driver.find_element(By.ID,"authUser").get_attribute("placeholder")
-        actual_password_placeholder = self.driver.find_element(By.CSS_SELECTOR, "#clearPass").get_attribute("placeholder")
+        actual_username_placeholder = self.driver.find_element(By.ID, "authUser").get_attribute("placeholder")
+        actual_password_placeholder = self.driver.find_element(By.CSS_SELECTOR, "#clearPass").get_attribute(
+            "placeholder")
         assert_that("Username").is_equal_to(actual_username_placeholder)
         assert_that("Password").is_equal_to(actual_password_placeholder)
-
