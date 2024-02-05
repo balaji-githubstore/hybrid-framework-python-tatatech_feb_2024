@@ -2,6 +2,8 @@ import pytest
 from selenium import webdriver
 
 """Code helps to configure browser for all test methods"""
+
+
 class WebDriverWrapper:
     @pytest.fixture(scope="function", autouse=True)
     def setup(self):

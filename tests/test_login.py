@@ -8,8 +8,8 @@ from base.automation_wrapper import WebDriverWrapper
 
 class TestLogin(WebDriverWrapper):
     def test_valid_login(self):
-        self.driver.find_element(By.ID, "authUser").send_keys("admin")
-        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys("pass")
+        self.driver.find_element(By.ID, "authUser").send_keys("accountant")
+        self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys("accountant")
         self.driver.find_element(By.ID, "login-button").click()
         assert_that("OpenEMR").is_equal_to(self.driver.title)
 
@@ -17,8 +17,9 @@ class TestLogin(WebDriverWrapper):
         self.driver.find_element(By.ID, "authUser").send_keys("john")
         self.driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys("john123")
         self.driver.find_element(By.ID, "login-button").click()
-        actual_error=self.driver.find_element(By.XPATH,"//p[contains(text(),'Invalid')]").text
+        actual_error = self.driver.find_element(By.XPATH, "//p[contains(text(),'Invalid')]").text
         assert_that(actual_error).contains("Invalid username or password")
+
 
 class TestLoginUI(WebDriverWrapper):
     def test_title(self):
