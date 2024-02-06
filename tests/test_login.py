@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 from base.automation_wrapper import WebDriverWrapper
 from pages.login_page import LoginPage
+from pages.main_page import MainPage
 from utils.data_utils import DataSource
 
 
@@ -16,17 +17,18 @@ class TestLogin(WebDriverWrapper):
         login=LoginPage(self.driver)
         login.enter_username(username)
         login.enter_password(password)
-        self.driver.find_element(By.ID, "login-button").click()
-        assert_that(expected_title).is_equal_to(self.driver.title)
+        login.click_on_login()
+
+        main=MainPage(self.driver)
+        assert_that(expected_title).is_equal_to(main.get_main_title)
 
     @pytest.mark.parametrize("username,password,expected_error", DataSource.data_invalid_login)
     def test_invalid_login(self, username, password, expected_error):
         login = LoginPage(self.driver)
         login.enter_username(username)
         login.enter_password(password)
-
-        self.driver.find_element(By.ID, "login-button").click()
-        actual_error = self.driver.find_element(By.XPATH, "//p[contains(text(),'Invalid')]").text
+        login.click_on_login()
+        actual_error = login.get_error_message()
         assert_that(actual_error).contains(expected_error)
 
 
