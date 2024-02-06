@@ -18,7 +18,6 @@ class TestAddPatient(WebDriverWrapper):
         main=MainPage(self.driver)
         main.click_on_patient_menu()
         main.click_on_new_search_menu()
-        time.sleep(15)
 
         search=SearchOrAddPatientPage(self.driver)
         search.enter_firstname("john")
