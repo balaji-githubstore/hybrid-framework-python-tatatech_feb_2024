@@ -13,7 +13,7 @@ class LoginPage:
         self.__driver.find_element(By.CSS_SELECTOR, "#clearPass").send_keys(password)
 
     def click_on_login(self):
-        self.driver.find_element(By.ID, "login-button").click()
+        self.__driver.find_element(By.ID, "login-button").click()
 
     def get_error_message(self):
-        return self.driver.find_element(By.XPATH, "//p[contains(text(),'Invalid')]").text
+        return self.__driver.find_element(By.XPATH, "//p[contains(text(),'Invalid')]").text
