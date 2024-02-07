@@ -2,6 +2,8 @@
 
 import pandas
 
+import config
+
 df=pandas.read_excel(io="../test_data/open_emr_data.xlsx",sheet_name="test_valid_login")
 print(df)
 # print(df.loc[1])
@@ -26,3 +28,6 @@ json_dic=pandas.read_json(path_or_buf="../test_data/config.json",typ="dictionary
 print(json_dic)
 print(json_dic["browser"])
 print(json_dic["url"])
+
+print(config.project_path)
+print(config.test_data_path)
