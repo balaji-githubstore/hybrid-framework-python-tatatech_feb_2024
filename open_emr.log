@@ -1,12 +1,12 @@
-2024-02-07 06:00:39 INFO Launched browser ch and navigated to https://demo.openemr.io/b/openemr
-2024-02-07 06:00:40 INFO Entered username as admin
-2024-02-07 06:00:40 INFO Entered password as pass
-2024-02-07 06:00:44 INFO Clicked on login
-2024-02-07 06:00:44 INFO Actual title OpenEMR
-2024-02-07 06:00:44 INFO Test Passed for admin
-2024-02-07 06:00:51 INFO Launched browser ch and navigated to https://demo.openemr.io/b/openemr
-2024-02-07 06:00:51 INFO Entered username as admin
-2024-02-07 06:00:51 INFO Entered password as pass
-2024-02-07 06:00:56 INFO Clicked on login
-2024-02-07 06:00:56 INFO Actual title OpenEMR
-2024-02-07 06:00:56 INFO Test Passed for admin
+2024-02-07 06:07:19 INFO Launched browser ch and navigated to https://demo.openemr.io/b/openemr
+2024-02-07 06:07:20 INFO Entered username as physician
+2024-02-07 06:07:20 INFO Entered password as physician
+2024-02-07 06:07:24 INFO Clicked on login
+2024-02-07 06:07:24 INFO Actual title OpenEMR
+2024-02-07 06:07:24 INFO Test Passed for physician
+2024-02-07 06:07:31 INFO Launched browser ch and navigated to https://demo.openemr.io/b/openemr
+2024-02-07 06:07:31 INFO Entered username as receptionist
+2024-02-07 06:07:31 INFO Entered password as receptionist
+2024-02-07 06:07:35 INFO Clicked on login
+2024-02-07 06:07:35 INFO Actual title OpenEMR
+2024-02-07 06:07:35 INFO Test Passed for receptionist
