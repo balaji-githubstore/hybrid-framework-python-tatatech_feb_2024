@@ -3,7 +3,7 @@ from selenium import webdriver
 from assertpy import assert_that
 from selenium.webdriver.common.by import By
 
-from base.automation_wrapper import WebDriverWrapper
+from base.automation_wrapper import WebDriverWrapper, Logger
 from pages.login_page import LoginPage
 from pages.main_page import MainPage
 from utils.data_utils import DataSource
@@ -13,14 +13,20 @@ class TestLogin(WebDriverWrapper):
 
     @pytest.mark.smoke
     @pytest.mark.login
-    @pytest.mark.parametrize("username,password,expected_title", DataSource.data_valid_login_csv)
+    @pytest.mark.valid
+    @pytest.mark.parametrize("username,password,expected_title", DataSource.data_valid_login_excel)
     def test_valid_login(self, username, password, expected_title):
         login = LoginPage(self.driver)
         login.enter_username(username)
+        Logger.info(f"Entered username as {username}")
         login.enter_password(password)
+        Logger.info(f"Entered password as {password}")
         login.click_on_login()
+        Logger.info(f"Clicked on login")
         main = MainPage(self.driver)
+        Logger.info(f"Actual title {main.get_main_title}")
         assert_that(expected_title).is_equal_to(main.get_main_title)
+        Logger.info(f"Test Passed for {username}")
 
     @pytest.mark.login
     @pytest.mark.parametrize("username,password,expected_error", DataSource.data_invalid_login_excel)
